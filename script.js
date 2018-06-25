@@ -94,6 +94,6 @@ function pad0(value) {
   return result;
 }
 
-['.container__stopwatch--first', '.container__stopwatch--second'].forEach((selector) => {
+['.stopwatch_first', '.stopwatch_second'].forEach((selector) => {
     new Stopwatch(document.querySelector(selector))
 })
