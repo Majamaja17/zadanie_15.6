@@ -7,6 +7,7 @@ class Stopwatch {
     this.print(this.times);
     this.build(this.container)
   }
+
   reset() {
     this.times = {
       minutes: 0,
@@ -14,23 +15,28 @@ class Stopwatch {
       miliseconds: 0
     };
   }
+
   print() {
     this.display.innerText = this.format(this.times);
   }
+
   format(times) {
     return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
   }
+
   start() {
     if (!this.running) {
       this.running = true;
       this.watch = setInterval(() => this.step(), 10);
     }
   }
+
   step() {
     if (!this.running) return;
     this.calculate();
     this.print();
   }
+
   calculate() {
     this.times.miliseconds += 1;
     if (this.times.miliseconds >= 100) {
@@ -42,20 +48,13 @@ class Stopwatch {
       this.times.seconds = 0;
     }
   }
+
   stop() {
     this.running = false;
     clearInterval(this.watch);
   }
 
   build(container) {
-
-    // NA POTEM: wrzucic to w obiekt piekniutki
-    // const setup = {
-    //     'start': () => {},
-    //     'stop': () =>
-    // }
-
-    // Object.keys(setup).forEach()
 
     const startButton = container.getElementsByClassName('start');
     startButton[0].addEventListener('click', () => this.start());
@@ -77,8 +76,6 @@ class Stopwatch {
       this.container.querySelector('.results').innerHTML += `<li>${this.display.textContent}</li>`;
     }); 
 
-    // delete BUTTON
-
     const deleteButton = this.container.getElementsByClassName('delete');
     deleteButton[0].addEventListener('click', () => {
       this.container.querySelector('.results').innerHTML = " ";
@@ -94,6 +91,6 @@ function pad0(value) {
   return result;
 }
 
-['.stopwatch_first', '.stopwatch_second'].forEach((selector) => {
+['.container', '.stopwatch_second'].forEach((selector) => {
     new Stopwatch(document.querySelector(selector))
 })
